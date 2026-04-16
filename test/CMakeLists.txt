@@ -111,7 +111,9 @@ add_qgc_test(QGCSerialPortInfoTest LABELS Unit Comms)
 # FactSystem
 # ----------------------------------------------------------------------------
 add_subdirectory(FactSystem)
-add_qgc_test(APMParameterMetaDataTest LABELS Unit)
+if(NOT QGC_DISABLE_APM_PLUGIN)
+    add_qgc_test(APMParameterMetaDataTest LABELS Unit)
+endif()
 add_qgc_test(FactGroupTest LABELS Unit)
 add_qgc_test(FactMetaDataTest LABELS Unit)
 add_qgc_test(PX4ParameterMetaDataTest LABELS Unit)
@@ -313,7 +315,9 @@ add_qgc_test(Viewer3DMapProviderTest LABELS Unit Viewer3D)
 # Vehicle
 # ----------------------------------------------------------------------------
 add_subdirectory(Vehicle)
-add_qgc_test(APMAirframeComponentControllerTest LABELS Integration Vehicle RESOURCE_LOCK MockLink)
+if(NOT QGC_DISABLE_APM_PLUGIN)
+    add_qgc_test(APMAirframeComponentControllerTest LABELS Integration Vehicle RESOURCE_LOCK MockLink)
+endif()
 add_qgc_test(ComponentInformationCacheTest LABELS Unit Vehicle)
 add_qgc_test(ComponentInformationTranslationTest LABELS Unit Vehicle)
 add_qgc_test(ComponentInformationManagerTest LABELS Integration Vehicle RESOURCE_LOCK MockLink)

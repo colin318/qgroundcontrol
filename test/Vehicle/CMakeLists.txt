@@ -3,6 +3,13 @@
 # Tests for vehicle connection, FTP, MAVLink commands, and link management
 # ============================================================================
 
+if(NOT QGC_DISABLE_APM_PLUGIN)
+    set(_apm_test_sources
+        APMAirframeComponentControllerTest.cc
+        APMAirframeComponentControllerTest.h
+    )
+endif()
+
 target_sources(${CMAKE_PROJECT_NAME}
     PRIVATE
         FTPManagerTest.cc
@@ -17,8 +24,7 @@ target_sources(${CMAKE_PROJECT_NAME}
         InitialConnectPeripheralStartupTest.h
         MAVLinkLogManagerTest.cc
         MAVLinkLogManagerTest.h
-        APMAirframeComponentControllerTest.cc
-        APMAirframeComponentControllerTest.h
+        ${_apm_test_sources}
         RequestMessageTest.cc
         RequestMessageTest.h
         SendMavCommandWithHandlerTest.cc
@@ -29,7 +35,14 @@ target_sources(${CMAKE_PROJECT_NAME}
         VehicleLinkManagerTest.h
 )
 
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+if(NOT QGC_DISABLE_APM_PLUGIN)
+    target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+        ${CMAKE_SOURCE_DIR}/src/AutoPilotPlugins/APM
+    )
+endif()
 
 # ----------------------------------------------------------------------------
 # Component Information Tests

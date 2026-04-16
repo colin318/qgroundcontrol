@@ -3,10 +3,16 @@
 # Tests for parameter management and fact metadata
 # ============================================================================
 
-target_sources(${CMAKE_PROJECT_NAME}
-    PRIVATE
+if(NOT QGC_DISABLE_APM_PLUGIN)
+    set(_apm_test_sources
         APMParameterMetaDataTest.cc
         APMParameterMetaDataTest.h
+    )
+endif()
+
+target_sources(${CMAKE_PROJECT_NAME}
+    PRIVATE
+        ${_apm_test_sources}
         FactGroupTest.cc
         FactGroupTest.h
         FactMetaDataTest.cc
