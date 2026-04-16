@@ -90,6 +90,19 @@ project(${QGC_APP_NAME}
     LANGUAGES C CXX
 )
 
+# ----------------------------------------------------------------------------
+# MSVC-Specific Compile Options
+# ----------------------------------------------------------------------------
+if(MSVC)
+    # /bigobj: Increase the number of sections allowed in an object file
+    # Required for large translation units with many templates/includes
+    add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/bigobj>)
+
+    # /Zc:preprocessor: Enable the standards-compliant preprocessor
+    # Required for __VA_OPT__ support used in UnitTest.h macros
+    add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/Zc:preprocessor>)
+endif()
+
 # ============================================================================
 # CMake & Build System Configuration
 # ============================================================================
